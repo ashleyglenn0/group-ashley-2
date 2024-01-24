@@ -1,6 +1,6 @@
 
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const MovieApiData = () => {
   const [movieData, setMovieData] = useState(null);
