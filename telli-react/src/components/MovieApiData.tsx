@@ -16,7 +16,7 @@ const MovieApiData = () => {
           throw new Error(`Network response was not ok: ${response.statusText}`);
         }
 
-        // Parse the JSON data from the response
+        // Pull JSON data from the response-- NOTE** DATA IS NOT PARSED YET!!
         return response.json();
       })
       .then(data => {
@@ -32,17 +32,28 @@ const MovieApiData = () => {
   return (
     <div>
       {error ? (
-        //ternary above for possible errors- if true, return inside <p> element
         <p>Error fetching movie data: {error}</p>
       ) : (
-        //stringify json object, null, spacing for results set to 3
-        <pre>{JSON.stringify(movieData, null, 3)}</pre>
+        <div>
+          <h2>Popular Movies</h2>
+          <ul>
+            {movieData &&
+              movieData.results.map(movie => (
+                <li key={movie.id}>
+                  <h3>{movie.title}</h3>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                    alt={`${movie.title} Poster`}
+                    style={{ width: '300px', height: '450px' }}
+                  />
+                  <p>{movie.overview}</p>
+                </li>
+              ))}
+          </ul>
+        </div>
       )}
     </div>
   );
 };
 
 export default MovieApiData;
- 
- 
-  
