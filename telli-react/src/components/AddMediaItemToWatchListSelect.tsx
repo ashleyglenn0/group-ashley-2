@@ -62,7 +62,7 @@ export default function AddMediaToWatchListSelect({
 
       try {
         const response = await fetch(
-          `http://localhost:8080/api/add-to-watchlist/${selectedWatchList}`,
+          `http://localhost:8080/api/media-item/add-to-watchlist/${selectedWatchList}`,
           {
             method: "POST",
             headers: {
