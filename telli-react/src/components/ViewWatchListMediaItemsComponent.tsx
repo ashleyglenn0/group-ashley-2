@@ -61,7 +61,7 @@ export default function ViewWatchListMediaItemsComponent() {
                     </>
                 )}
             </div>
-                    // BOILERPLATE -- Replace with actual media details
+                    {/*  BOILERPLATE -- Replace with actual media details */}
             <div>
                 {mediaItems && (
                     <>
