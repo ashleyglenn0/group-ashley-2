@@ -46,7 +46,7 @@ export default function AddMediaToWatchListSelect({
         ])
         const [movieData, tvData]: [any, any] = await Promise.all([movieResult.json(), tvResult.json()])
 
-        if (movieData.name === mediaTitle) {
+        if (movieData.title === mediaTitle) {
           mediaItemDTO.mediaType = 'movie'
         } else if (tvData.name === mediaTitle) {
           mediaItemDTO.mediaType = 'tv'
