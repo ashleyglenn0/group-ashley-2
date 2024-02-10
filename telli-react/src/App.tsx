@@ -5,7 +5,7 @@ import './App.css'
 import CreateNewWatchListForm from './components/CreateNewWatchList'
 import DisplayAllWatchLists from './components/ViewWatchLists'
 import MovieApiData from './components/MovieApiData'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 
@@ -17,14 +17,12 @@ function App() {
       <CreateNewWatchListForm />
       <DisplayAllWatchLists />
       <Router>
-        <div>
-        <Navbar />
-        <Home />
-      <Switch>
-        <Route exact path="/" component={Home} />
-      </Switch>
-      </div>
-    </Router>
+  <div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
+  </div>
+</Router>
     </>
 
   )

@@ -4,7 +4,7 @@ import MovieApiData from './MovieApiData';
 function Home() {
   return (
     <div>
-      <h1>Welcome to the Movie Database</h1>
+      <h1>Welcome to Telli</h1>
       <MovieApiData />
     </div>
   );
