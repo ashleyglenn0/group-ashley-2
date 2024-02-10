@@ -46,7 +46,6 @@ const MovieApiData = () => {
                     alt={`${movie.title} Poster`}
                     style={{ width: '300px', height: '450px' }}
                   />
-                  <p>{movie.overview}</p>
                 </li>
               ))}
           </ul>
