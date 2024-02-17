@@ -8,6 +8,7 @@ import MovieApiData from './components/MovieApiData'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
+import UpdateMovieFeed from './components/UpdateMovieFeed'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -20,6 +21,7 @@ function App() {
   <div>
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/movies/:id" element={<UpdateMovieFeed />} />
     </Routes>
   </div>
 </Router>

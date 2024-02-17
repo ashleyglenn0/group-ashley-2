@@ -1,24 +1,23 @@
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MovieApiData from './MovieApiData';
 
 function MovieFeed({ movieData }) {
-  const [selectedMovieId, setSelectedMovieId] = useState(null);
+  const navigate = useNavigate();
 
   const handleMovieClick = (movieId) => {
-    setSelectedMovieId(movieId);
+    navigate(`/movies/${movieId}`);
   };
 
   return (
     <div>
-      {selectedMovieId ? (
-        <MovieApiData movieId={selectedMovieId} />
-      ) : (
-        movieData.map(movie => (
-          <div key={movie.id} onClick={() => handleMovieClick(movie.id)}>
-            {`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-          </div>
-        ))
-      )}
+      {movieData.map(movie => (
+        <div key={movie.id} onClick={() => handleMovieClick(movie.id)}>
+          <img
+            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+            alt={`${movie.title} Poster`}
+          />
+        </div>
+      ))}
     </div>
   );
 }

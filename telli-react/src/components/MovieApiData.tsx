@@ -7,6 +7,7 @@ const MovieApiData = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    
     const apiKey = 'fae46c29ceeaecf4154856d4ac887a0a';
 
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`)
