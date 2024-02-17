@@ -7,26 +7,27 @@ const MovieApiData = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const api_key = import.meta.env.tmdb_api_key;
-
+    const api_key = import.meta.env.VITE_API_KEY;
+    
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}`)
-      .then(response => {
-        // Check if the response is good
-        if (!response.ok) {
-          throw new Error(`Network response was not ok: ${response.statusText}`);
-        }
+    .then(response => {
+      // Check if the response is good
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
 
-        // Pull JSON data from the response-- NOTE** DATA IS NOT PARSED YET!!
-        return response.json();
-      })
-      .then(data => {
-        // Set the movie data in state
-        setMovieData(data);
-      })
-      .catch(error => {
-        // Set the error in state
-        setError(error.message);
-      });
+      // Pull JSON data from the response-- NOTE** DATA IS NOT PARSED YET!!
+      return response.json();
+    })
+    .then(data => {
+      // Set the movie data in state
+      setMovieData(data);
+    })
+    .catch(error => {
+      // Set the error in state
+      setError(error.message);
+    });
+
   }, []); // Empty array so the effect runs ONCE
 
   return (
