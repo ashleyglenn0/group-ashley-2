@@ -7,9 +7,9 @@ const MovieApiData = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const apiKey = 'fae46c29ceeaecf4154856d4ac887a0a';
+    const api_key = import.meta.env.tmdb_api_key;
 
-    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`)
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}`)
       .then(response => {
         // Check if the response is good
         if (!response.ok) {
