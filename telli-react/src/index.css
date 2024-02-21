@@ -35,6 +35,8 @@ button {
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -73,6 +75,8 @@ button:focus-visible {
 .movie-list {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2vw;
 }
 
 .review-by-user {
@@ -95,6 +99,8 @@ button:focus-visible {
 
 .movie-item img {
   max-width: 20vw;
+  border-radius: 8px;
+  gap: 2vw;
 }
 
 h1.movie-feed-title {
@@ -119,7 +125,6 @@ h1.movie-feed-title {
 .movie-item-media-feed img {
   max-width: 100%;
   height: auto;
-  
 }
 
 label.review-label {

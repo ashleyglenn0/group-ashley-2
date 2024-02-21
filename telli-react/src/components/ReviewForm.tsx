@@ -58,7 +58,7 @@ export default function ReviewForm({ mediaItemDTO }: AddReviewToMediaItem) {
         } else {
           console.error(
             "Error: Form submission failed. Status code: ",
-            response.status
+            response.status, response
           );
         }
       } else {
