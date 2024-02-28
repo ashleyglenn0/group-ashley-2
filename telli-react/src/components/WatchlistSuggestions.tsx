@@ -1,28 +1,34 @@
 import React, { useState, useEffect } from "react";
 
 interface SuggestedMoviesProps {
-  movieId: number;
+  tmdbId: number;
 }
 
-const SuggestedMovies: React.FC<SuggestedMoviesProps> = ({ movieId }) => {
+const SuggestedMovies: React.FC<SuggestedMoviesProps> = ({ tmdbId }) => {
   const [suggestedMovies, setSuggestedMovies] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchSimilarMovies = async () => {
-      const apiKey = 'YOUR_API_KEY';
-      const apiUrl = `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${apiKey}`;
-      
+    async function fetchSimilarMovies() {
+      const url = `https://api.themoviedb.org/3/movie/${tmdbId}/similar?language=en-US&page=1`;
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZGU2NTJhODNlYzkwNzcxZTdkZWQ4YWEwMmMyMDJkYSIsInN1YiI6IjY1YWQ1OWJiMTU4Yzg1MDBhYzFiZTEyZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nA96D4cB1ZUGNw42oU3Ah6NVMuQhb2WTlIehZJskGDg'
+        }
+      };
+
       try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        setSuggestedMovies(data.results);
+        const response = await fetch(url, options);
+        const json = await response.json();
+        setSuggestedMovies(json.results);
       } catch (error) {
-        console.error('Error fetching similar movies:', error);
+        console.error("Error fetching movie details:", error);
       }
-    };
+    }
 
     fetchSimilarMovies();
-  }, [movieId]);
+  }, [tmdbId]);
 
   return (
     <div>

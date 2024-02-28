@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { WatchList } from "./ViewWatchLists";
 import DeleteMediaItemFromWatchListButton from "./DeleteMediaItemFromWatchListButton";
+import SuggestedMovies from "./WatchlistSuggestions";
+
 
 interface MediaItem {
   tmdbId: number;
@@ -15,7 +17,6 @@ interface MediaItemDetails {
   poster_path: string;
   tagline: string;
   mediaType: string;
-  // Add other properties as needed
 }
 
 async function fetchMediaItemsById(id: string | undefined) {
@@ -48,6 +49,7 @@ export default function ViewWatchListMediaItemsComponent() {
   const [watchList, setWatchList] = useState<WatchList>();
   const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
   const [mediaDetails, setMediaDetails] = useState<MediaItemDetails[]>([]);
+  const [tmdbIds, setTmdbIds] = useState<number[]>([]);
 
   useEffect(() => {
     async function fetchWatchListById() {
@@ -70,8 +72,8 @@ export default function ViewWatchListMediaItemsComponent() {
     }
 
     const fetchAllMediaItems = async () => {
-        const results = await fetchMediaItemsById(id);
-        setMediaItems(results);
+      const results = await fetchMediaItemsById(id);
+      setMediaItems(results);
     };
 
     fetchWatchListById();
@@ -85,14 +87,10 @@ export default function ViewWatchListMediaItemsComponent() {
           const [movieResult, tvResult]: [Response, Response] =
             await Promise.all([
               fetch(
-                `https://api.themoviedb.org/3/movie/${
-                  mediaItem.tmdbId
-                }?api_key=${"8f41637da57e52055177463bf9873dc2"}`
+                `https://api.themoviedb.org/3/movie/${mediaItem.tmdbId}?api_key=${"8f41637da57e52055177463bf9873dc2"}`
               ),
               fetch(
-                `https://api.themoviedb.org/3/tv/${
-                  mediaItem.tmdbId
-                }?api_key=${"8f41637da57e52055177463bf9873dc2"}`
+                `https://api.themoviedb.org/3/tv/${mediaItem.tmdbId}?api_key=${"8f41637da57e52055177463bf9873dc2"}`
               ),
             ]);
 
@@ -109,7 +107,6 @@ export default function ViewWatchListMediaItemsComponent() {
               mediaType: "movie",
               poster_path: movieData.poster_path,
               tagline: movieData.tagline,
-              // Add other properties as needed
             };
           } else if (tvData.name) {
             return {
@@ -119,7 +116,6 @@ export default function ViewWatchListMediaItemsComponent() {
               mediaType: "tv",
               poster_path: tvData.poster_path,
               tagline: tvData.tagline,
-              // Add other properties as needed
             };
           } else {
             console.error(
@@ -138,9 +134,11 @@ export default function ViewWatchListMediaItemsComponent() {
 
       const details = await Promise.all(detailsPromises);
       setMediaDetails(details.filter(Boolean) as MediaItemDetails[]);
+      const ids = mediaItems.map((item) => item.tmdbId);
+      setTmdbIds(ids);
     }
 
-    if (mediaItems.length > 0 ) {
+    if (mediaItems.length > 0) {
       fetchMediaDetails();
     }
   }, [id, mediaItems]);
@@ -156,7 +154,9 @@ export default function ViewWatchListMediaItemsComponent() {
         )}
       </div>
       <div>
-      {mediaItems.length === 0 && ( <p>No media on this watchlist yet!</p>)}
+        {mediaItems.length === 0 && (
+          <p>No media on this watchlist yet!</p>
+        )}
         {watchList && mediaDetails !== undefined && (
           <>
             <div className="movie-list">
@@ -187,6 +187,7 @@ export default function ViewWatchListMediaItemsComponent() {
           </>
         )}
       </div>
+      {tmdbIds.length > 0 && <SuggestedMovies tmdbId={tmdbIds[0]} />}
     </>
   );
 }
